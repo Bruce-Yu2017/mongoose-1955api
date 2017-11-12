@@ -27,8 +27,14 @@ app.get("/", function(req, res) {
 })
 
 app.get("/new/:name", function(req, res) {
-    Api.create({name: req.params.name}, function(req, data) {
-        res.json(data);
+    var api = new Api({name: req.params.name});
+    api.save({name: req.body.name}, function(err) {
+        if(err) {
+            console.log(err);
+        }
+        else {
+            res.redirect("/")
+        }
     })
 })
 
